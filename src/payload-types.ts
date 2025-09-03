@@ -86,11 +86,9 @@ export interface Config {
   };
   globals: {
     'site-settings': SiteSetting;
-    theming: Theming;
   };
   globalsSelect: {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
-    theming: ThemingSelect<false> | ThemingSelect<true>;
   };
   locale: null;
   user: User & {
@@ -335,30 +333,6 @@ export interface SiteSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "theming".
- */
-export interface Theming {
-  id: number;
-  brandColors: {
-    primaryColor: string;
-    secondaryColor: string;
-    accentColor: string;
-  };
-  baseColors: {
-    backgroundColor: string;
-    foregroundColor: string;
-    mutedForegroundColor: string;
-    borderColor: string;
-  };
-  typography: {
-    sansSerifFont: string;
-    serifFont: string;
-  };
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
@@ -382,36 +356,6 @@ export interface SiteSettingsSelect<T extends boolean = true> {
     | {
         twitterCard?: T;
         twitterSite?: T;
-      };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "theming_select".
- */
-export interface ThemingSelect<T extends boolean = true> {
-  brandColors?:
-    | T
-    | {
-        primaryColor?: T;
-        secondaryColor?: T;
-        accentColor?: T;
-      };
-  baseColors?:
-    | T
-    | {
-        backgroundColor?: T;
-        foregroundColor?: T;
-        mutedForegroundColor?: T;
-        borderColor?: T;
-      };
-  typography?:
-    | T
-    | {
-        sansSerifFont?: T;
-        serifFont?: T;
       };
   updatedAt?: T;
   createdAt?: T;

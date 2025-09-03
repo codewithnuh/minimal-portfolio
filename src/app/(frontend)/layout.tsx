@@ -2,17 +2,15 @@ import "./globals.css";
 import { Inter, Playfair_Display } from "next/font/google";
 import { payloadClient } from "../../lib/getPaylod";
 import React from "react";
+import { Navbar } from "@/components/globals/Navbar";
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Container } from "@/components/shared/Container";
 
 // 1. Import Fonts: Best practice is to import and optimize fonts
 // The "variable" property sets up CSS variables that we can reference later
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-sans-fallback",
-});
-
-const playfairDisplay = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-serif-fallback",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 // 2. Dynamic Metadata: This is a Next.js feature for handling SEO
@@ -46,19 +44,25 @@ export async function generateMetadata() {
     },
   };
 }
-
-// 3. Root Layout Component
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    // Set up dynamic CSS variables on the root <html> tag
-    <html lang="en" className={`${inter.variable} ${playfairDisplay.variable}`}>
+    <html suppressHydrationWarning lang="en" className={`${inter.className}`}>
       <body>
-        {/* We will add header and footer components here in a later step */}
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Container className="relative ">
+            <Navbar />
+          </Container>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

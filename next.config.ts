@@ -2,7 +2,10 @@ import { withPayload } from "@payloadcms/next/withPayload";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  productionBrowserSourceMaps: true,
+  images: {
+    remotePatterns: [new URL("https://placehold.co/**")],
+  },
   turbopack: {
     root: __dirname,
   },
