@@ -1,5 +1,5 @@
 "use client"; // This is needed if you are using Next.js App Router for client-side state
-import { motion } from "motion/react";
+import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "../ui/button";
@@ -12,8 +12,27 @@ import { Menu, X } from "lucide-react";
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hovered, setHovered] = useState<number | null>(null);
+  const { scrollY } = useScroll();
+  const [scrolled, setScrolled] = useState<boolean>(false);
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest > 20) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+  });
   return (
-    <header className="fixed mx-auto inset-x-0 -top-4 z-40  max-w-2xl w-[85%] md:w-full flex items-center justify-between px-4 py-2 bg-secondary/60 backdrop-blur-3xl rounded-full mt-10 border-b border-border">
+    <motion.header
+      animate={{
+        width: scrolled ? "75%" : "85%",
+        y: scrolled ? 10 : 0,
+      }}
+      transition={{
+        ease: "easeInOut",
+        duration: 0.3,
+      }}
+      className="fixed mx-auto inset-x-0 -top-4 z-40  max-w-2xl w-[85%] md:w-full flex items-center justify-between px-4 py-2 bg-secondary/60 backdrop-blur-3xl rounded-full mt-10 border-b border-border"
+    >
       {/* Title or Logo */}
       <Avatar>
         <AvatarImage src="https://placehold.co/40x40/png" alt="logo" />
@@ -101,6 +120,6 @@ export const Navbar = () => {
           </ul>
         </nav>
       )}
-    </header>
+    </motion.header>
   );
 };

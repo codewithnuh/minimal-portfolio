@@ -15,6 +15,7 @@ import {
 } from "react-icons/si";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+import Heading from "../shared/Heading";
 const TECHNOLOGIES = [
   {
     name: "Next.js",
@@ -95,15 +96,30 @@ const PROJECTS_CONTENT = {
   ],
 };
 
-const TechStackPills = ({ techStack }) => {
-  const [expanded, setExpanded] = useState(null);
+const TechStackPills = ({ techStack }: { techStack: string[] }) => {
+  const [expanded, setExpanded] = useState<string | null>(null);
 
-  const handleExpand = (techName) => {
+  interface Tech {
+    name: string;
+    icon: React.ComponentType<{ className?: string }>;
+    description: string;
+    color: string;
+  }
+
+  interface Project {
+    title: string;
+    description: string;
+    techStack: string[];
+    image: string;
+    demoLink: string;
+    githubLink: string;
+  }
+
+  const handleExpand = (techName: string): void => {
     setExpanded(expanded === techName ? null : techName);
   };
 
   return (
-    // More advanced solution with better performance
     <div className="flex -space-x-2">
       <AnimatePresence>
         {techStack.map((techName) => {
@@ -180,29 +196,48 @@ export const ProjectsSection = () => {
     <section id="projects" className="py-6 md:py-9 lg:py-16 ">
       <Container>
         <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
+          <Heading
+            as="h2"
+            className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl"
+          >
             {PROJECTS_CONTENT.title}
-          </h2>
-          <p className="max-w-[700px] text-muted-foreground md:text-xl mx-auto">
+          </Heading>
+          <motion.p
+            initial={{ y: 10, opacity: 0, filter: "blur(10px" }}
+            whileInView={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="max-w-[700px] text-muted-foreground md:text-xl mx-auto"
+          >
             {PROJECTS_CONTENT.description}
-          </p>
+          </motion.p>
         </div>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {PROJECTS_CONTENT.projects.map((project, idx) => (
-            <Card key={idx} className="p-1! border-none bg-transparent">
-              <CardHeader className="p-0! bg-transparent">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  width={600}
-                  className="rounded-md"
-                  height={400}
-                />
-              </CardHeader>
-              <CardTitle>{project.title}</CardTitle>
-              <CardDescription>{project.description}</CardDescription>
-              <TechStackPills techStack={project.techStack} />
-            </Card>
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, scale: 0.9, filter: "blur(5px)" }}
+              whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              whileHover={{ scale: 1.05 }}
+              transition={{
+                duration: 0.3,
+                delay: idx * 0.2, // This is the key part for staggering!
+              }}
+            >
+              <Card className="p-1! border-none bg-transparent">
+                <CardHeader className="p-0! bg-transparent">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    width={600}
+                    className="rounded-md"
+                    height={400}
+                  />
+                </CardHeader>
+                <CardTitle>{project.title}</CardTitle>
+                <CardDescription>{project.description}</CardDescription>
+                <TechStackPills techStack={project.techStack} />
+              </Card>
+            </motion.div>
           ))}
         </div>
       </Container>
