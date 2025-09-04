@@ -5,6 +5,7 @@ import React from "react";
 import { Navbar } from "@/components/globals/Navbar";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Container } from "@/components/shared/Container";
+import { Footer } from "@/components/globals/Footer";
 
 // 1. Import Fonts: Best practice is to import and optimize fonts
 // The "variable" property sets up CSS variables that we can reference later
@@ -62,6 +63,7 @@ export default async function RootLayout({
             <Navbar />
           </Container>
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

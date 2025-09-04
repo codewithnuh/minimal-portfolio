@@ -2,11 +2,11 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { Container } from "../shared/Container";
+import { Container } from "@/components/shared/Container";
 import { motion } from "motion/react";
-import Heading from "../shared/Heading";
+import Heading from "@/components/shared/Heading";
+import { Highlighter } from "@/components/shared/Highlighter";
 
-// Define a constant object for the hero section content
 const HERO_CONTENT = {
   greeting: "Hello, I'm John Doe.",
   headline: "Turning Ideas Into Captivating Web Experiences",
@@ -52,9 +52,16 @@ export const Hero = () => {
             className="flex flex-col items-center space-y-8 text-center"
           >
             <div className="space-y-4">
-              <Heading as="h3" className=" text-primary/80 ">
-                {HERO_CONTENT.greeting}
-              </Heading>
+              <Highlighter
+                action="underline"
+                color="orange"
+                animationDuration={1500}
+                iterations={3}
+              >
+                <Heading as="h3" className=" text-primary/80 ">
+                  {HERO_CONTENT.greeting}
+                </Heading>
+              </Highlighter>
               <Heading
                 duration={0.5}
                 className="text-4xl font-poppins font-bold  sm:text-5xl md:text-6xl lg:text-7xl/none max-w-4xl mx-auto"

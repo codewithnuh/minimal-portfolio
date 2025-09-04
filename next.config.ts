@@ -4,7 +4,14 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   productionBrowserSourceMaps: true,
   images: {
-    remotePatterns: [new URL("https://placehold.co/**")],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'placehold.co',
+        port: '',
+        pathname: '/**', 
+      },
+    ],
   },
   turbopack: {
     root: __dirname,

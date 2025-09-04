@@ -52,7 +52,7 @@ export function AboutSection() {
           >
             <div className="prose prose-lg max-w-none">
               <p className="text-foreground leading-relaxed text-lg">
-                I'm a passionate full-stack developer with over 5 years of
+                I&apos;m a passionate full-stack developer with over 5 years of
                 experience crafting digital experiences that blend functionality
                 with elegant design. My expertise spans modern web technologies,
                 from React and Next.js to Node.js and cloud architecture.
@@ -60,8 +60,8 @@ export function AboutSection() {
 
               <p className="text-muted-foreground leading-relaxed">
                 I believe in writing clean, maintainable code and creating
-                user-centered solutions that make a real impact. When I'm not
-                coding, you'll find me exploring new technologies, contributing
+                user-centered solutions that make a real impact. When I&apos;m not
+                coding, you&apos;ll find me exploring new technologies, contributing
                 to open source, or mentoring aspiring developers.
               </p>
             </div>

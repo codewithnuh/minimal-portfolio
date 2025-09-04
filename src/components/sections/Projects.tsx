@@ -223,7 +223,7 @@ export const ProjectsSection = () => {
                 delay: idx * 0.2, // This is the key part for staggering!
               }}
             >
-              <Card className="p-1! border-none bg-transparent">
+              <Card className="p-2! border-none bg-transparent">
                 <CardHeader className="p-0! bg-transparent">
                   <Image
                     src={project.image}
