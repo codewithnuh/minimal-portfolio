@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter } from "next/font/google";
 import { payloadClient } from "../../lib/getPaylod";
 import React from "react";
 import { Navbar } from "@/components/globals/Navbar";

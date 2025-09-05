@@ -86,9 +86,11 @@ export interface Config {
   };
   globals: {
     'site-settings': SiteSetting;
+    hero: Hero;
   };
   globalsSelect: {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+    hero: HeroSelect<false> | HeroSelect<true>;
   };
   locale: null;
   user: User & {
@@ -333,6 +335,26 @@ export interface SiteSetting {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hero".
+ */
+export interface Hero {
+  id: number;
+  greeting: string;
+  headline: string;
+  description: string;
+  primaryButton: {
+    text: string;
+    href: string;
+  };
+  secondaryButton: {
+    text: string;
+    href: string;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
@@ -356,6 +378,30 @@ export interface SiteSettingsSelect<T extends boolean = true> {
     | {
         twitterCard?: T;
         twitterSite?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hero_select".
+ */
+export interface HeroSelect<T extends boolean = true> {
+  greeting?: T;
+  headline?: T;
+  description?: T;
+  primaryButton?:
+    | T
+    | {
+        text?: T;
+        href?: T;
+      };
+  secondaryButton?:
+    | T
+    | {
+        text?: T;
+        href?: T;
       };
   updatedAt?: T;
   createdAt?: T;

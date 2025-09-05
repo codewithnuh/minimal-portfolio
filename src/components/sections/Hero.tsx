@@ -6,6 +6,8 @@ import { Container } from "@/components/shared/Container";
 import { motion } from "motion/react";
 import Heading from "@/components/shared/Heading";
 import { Highlighter } from "@/components/shared/Highlighter";
+import { useEffect, useState } from "react";
+import { getHeroContent } from "@/actions/actions";
 
 const HERO_CONTENT = {
   greeting: "Hello, I'm John Doe.",
@@ -33,14 +35,14 @@ const staggerContainer = {
   },
 };
 
-// Variants for a fade-in-and-up animation
-const fadeInUp = {
-  initial: { y: 10, opacity: 0, filter: "blur(10px" },
-  whileInView: { y: 0, opacity: 1, filter: "blur(0px)" },
-  transition: { duration: 0.3, ease: "easeInOut" },
-};
-
 export const Hero = () => {
+  const [heroContent, setHeroContent] = useState(HERO_CONTENT);
+  useEffect(() => {
+    const fetchHeroContend = async () => {
+      const data = await getHeroContent();
+      if (data) setHeroContent(data);
+    };
+  }, [heroContent]);
   return (
     <section className="relative w-full py-24 md:py-32 overflow-hidden">
       <Container>
@@ -59,14 +61,14 @@ export const Hero = () => {
                 iterations={3}
               >
                 <Heading as="h3" className=" text-primary/80 ">
-                  {HERO_CONTENT.greeting}
+                  {heroContent.greeting}
                 </Heading>
               </Highlighter>
               <Heading
                 duration={0.5}
                 className="text-4xl font-poppins font-bold  sm:text-5xl md:text-6xl lg:text-7xl/none max-w-4xl mx-auto"
               >
-                {HERO_CONTENT.headline}
+                {heroContent.headline}
               </Heading>
               <motion.p
                 initial={{ y: 10, opacity: 0, filter: "blur(10px" }}
@@ -74,7 +76,7 @@ export const Hero = () => {
                 transition={{ duration: 0.7, ease: "easeInOut" }}
                 className=" text-muted-foreground md:text-xl max-w-2xl  mx-auto"
               >
-                {HERO_CONTENT.description}
+                {heroContent.description}
               </motion.p>
             </div>
             <motion.div
@@ -95,8 +97,8 @@ export const Hero = () => {
                   asChild
                   className="group px-6 py-4 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-1"
                 >
-                  <Link href={HERO_CONTENT.primaryButton.href}>
-                    {HERO_CONTENT.primaryButton.text}
+                  <Link href={heroContent.primaryButton.href}>
+                    {heroContent.primaryButton.text}
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                 </Button>
@@ -110,8 +112,8 @@ export const Hero = () => {
                   asChild
                   className="px-6 py-4 rounded-full w-full transition-all duration-300 transform hover:-translate-y-1"
                 >
-                  <Link href={HERO_CONTENT.secondaryButton.href}>
-                    {HERO_CONTENT.secondaryButton.text}
+                  <Link href={heroContent.secondaryButton.href}>
+                    {heroContent.secondaryButton.text}
                   </Link>
                 </Button>
               </motion.div>
