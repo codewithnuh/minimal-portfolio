@@ -173,6 +173,7 @@ export interface Media {
 export interface Project {
   id: number;
   title: string;
+  markdown?: string | null;
   slug: string;
   liveUrl?: string | null;
   githubUrl?: string | null;
@@ -328,6 +329,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
+  markdown?: T;
   slug?: T;
   liveUrl?: T;
   githubUrl?: T;

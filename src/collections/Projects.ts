@@ -1,5 +1,10 @@
-import type { CollectionConfig } from "payload";
-import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import type { CollectionConfig, RichTextField } from "payload";
+import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
+import {
+  convertLexicalToMarkdown,
+  editorConfigFactory,
+  lexicalEditor,
+} from "@payloadcms/richtext-lexical";
 
 const Projects: CollectionConfig = {
   slug: "projects",
@@ -12,6 +17,42 @@ const Projects: CollectionConfig = {
       type: "text",
       label: "Project Title",
       required: true,
+    },
+    {
+      name: "markdown",
+      type: "textarea",
+      admin: {
+        hidden: true,
+      },
+      hooks: {
+        afterRead: [
+          ({ siblingData, siblingFields }) => {
+            const data: SerializedEditorState = siblingData["details"];
+
+            if (!data) {
+              return "";
+            }
+
+            const markdown = convertLexicalToMarkdown({
+              data,
+              editorConfig: editorConfigFactory.fromField({
+                field: siblingFields.find(
+                  (field) => "name" in field && field.name === "details"
+                ) as RichTextField,
+              }),
+            });
+
+            return markdown;
+          },
+        ],
+        beforeChange: [
+          ({ siblingData }) => {
+            // Ensure that the markdown field is not saved in the database
+            delete siblingData["markdown"];
+            return null;
+          },
+        ],
+      },
     },
     {
       name: "slug",

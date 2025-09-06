@@ -19,3 +19,12 @@ export const getAllProjects = async () => {
   const projects = await payload.find({ collection: "projects" });
   return projects;
 };
+
+export const getSingleProject = async (slug: string) => {
+  const payload = await payloadClient();
+  const project = await payload.find({
+    collection: "projects",
+    where: { slug: { equals: slug } },
+  });
+  return project;
+};
