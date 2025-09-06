@@ -13,3 +13,9 @@ export const getAboutContent = async () => {
   const aboutContent = await payload.findGlobal({ slug: "about" });
   return aboutContent;
 };
+
+export const getAllProjects = async () => {
+  const payload = await payloadClient();
+  const projects = await payload.find({ collection: "projects" });
+  return projects;
+};
