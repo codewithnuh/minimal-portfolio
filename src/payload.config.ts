@@ -11,6 +11,8 @@ import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
 import { SiteSettings } from "./collections/globals/Site";
 import Hero from "./collections/globals/Hero";
+import About from "./components/globals/About";
+import Projects from "./collections/Projects";
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
@@ -21,8 +23,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
-  globals: [SiteSettings, Hero],
+  collections: [Users, Media, Projects],
+  globals: [SiteSettings, Hero, About],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {

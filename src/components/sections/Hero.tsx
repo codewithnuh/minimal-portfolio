@@ -38,11 +38,12 @@ const staggerContainer = {
 export const Hero = () => {
   const [heroContent, setHeroContent] = useState(HERO_CONTENT);
   useEffect(() => {
-    const fetchHeroContend = async () => {
+    const fetchHeroContent = async () => {
       const data = await getHeroContent();
       if (data) setHeroContent(data);
     };
-  }, [heroContent]);
+    fetchHeroContent();
+  }, []);
   return (
     <section className="relative w-full py-24 md:py-32 overflow-hidden">
       <Container>

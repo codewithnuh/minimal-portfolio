@@ -15,12 +15,14 @@ export const Hero: GlobalConfig = {
       type: "text",
       label: "Headline",
       required: true,
+      maxLength: 50,
     },
     {
       name: "description",
       type: "text",
       label: "Description",
       required: true,
+      maxLength: 150,
     },
     {
       name: "primaryButton",

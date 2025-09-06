@@ -5,9 +5,81 @@ import { Card } from "@/components/ui/card";
 import { Mail, Github, Linkedin, ExternalLink } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
-import Heading from "../shared/Heading";
+import Heading from "@/components/shared/Heading";
+import { useEffect, useState } from "react";
+import { getAboutContent } from "@/actions/actions";
+
+const ABOUT_CONTENT = {
+  title: "About Me",
+  subtitle: "Full-Stack Developer & Creative Problem Solver",
+  profileImage: {
+    url: "https://placehold.co/600x400/png",
+    alt: "Professional headshot",
+  },
+  aboutParagraphs: [
+    {
+      text: "I'm a passionate full-stack developer with over 5 years of experience crafting digital experiences that blend functionality with elegant design. My expertise spans modern web technologies, from React and Next.js to Node.js and cloud architecture.",
+    },
+    {
+      text: "I believe in writing clean, maintainable code and creating user-centered solutions that make a real impact. When I'm not coding, you'll find me exploring new technologies, contributing to open source, or mentoring aspiring developers.",
+    },
+  ],
+  skills: [
+    { skill: "React" },
+    { skill: "TypeScript" },
+    { skill: "Next.js" },
+    { skill: "Node.js" },
+    { skill: "PostgreSQL" },
+    { skill: "AWS" },
+  ],
+  socialLinks: {
+    githubUrl: "#",
+    linkedinUrl: "#",
+    mailToUrl: "mailto:hello@example.com",
+  },
+  ctaButtons: [
+    { text: "Get In Touch", href: "#contact", variant: "default" },
+    { text: "View My Work", href: "#projects", variant: "outline" },
+  ],
+};
 
 export function AboutSection() {
+  const [aboutContent, setAboutContent] = useState(ABOUT_CONTENT);
+  useEffect(() => {
+    const fetchAboutContent = async () => {
+      const data = await getAboutContent();
+      if (data) {
+        setAboutContent({
+          ...data,
+          profileImage:
+            typeof data.profileImage === "object" && data.profileImage !== null
+              ? {
+                  url: (data.profileImage as any).url ?? "",
+                  alt: (data.profileImage as any).alt ?? "Profile image",
+                }
+              : {
+                  url: "",
+                  alt: "Profile image",
+                }, // Fallback for profileImage if it's not an object or null
+          aboutParagraphs: data.aboutParagraphs ?? [],
+          skills: data.skills ?? [],
+          socialLinks: data.socialLinks ?? {
+            githubUrl: "#",
+            linkedinUrl: "#",
+            mailToUrl: "#",
+          },
+          ctaButtons:
+            data.ctaButtons?.map((button) => ({
+              ...button,
+              variant: button.variant ?? "default", // Ensure variant is always a string
+            })) ?? [],
+        });
+      } else {
+        setAboutContent(ABOUT_CONTENT);
+      }
+    };
+    fetchAboutContent();
+  }, []);
   return (
     <section className="min-h-screen bg-background py-20 px-4">
       <div className="max-w-4xl mx-auto">
@@ -18,10 +90,10 @@ export function AboutSection() {
           className="text-center mb-16"
         >
           <Heading as="h2" className="font-extrabold mb-3">
-            About Me
+            {ABOUT_CONTENT.title}
           </Heading>
           <p className=" text-muted-foreground md:text-xl max-w-2xl  mx-auto">
-            Full-Stack Developer & Creative Problem Solver
+            {ABOUT_CONTENT.subtitle}
           </p>
         </motion.div>
 
@@ -36,8 +108,8 @@ export function AboutSection() {
                 <Image
                   width={192}
                   height={192}
-                  src="https://placehold.co/600x400/png"
-                  alt="Professional headshot"
+                  src={ABOUT_CONTENT.profileImage.url}
+                  alt={ABOUT_CONTENT.profileImage.alt}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -51,35 +123,23 @@ export function AboutSection() {
             className="space-y-6"
           >
             <div className="prose prose-lg max-w-none">
-              <p className="text-foreground leading-relaxed text-lg">
-                I&apos;m a passionate full-stack developer with over 5 years of
-                experience crafting digital experiences that blend functionality
-                with elegant design. My expertise spans modern web technologies,
-                from React and Next.js to Node.js and cloud architecture.
-              </p>
-
-              <p className="text-muted-foreground leading-relaxed">
-                I believe in writing clean, maintainable code and creating
-                user-centered solutions that make a real impact. When I&apos;m not
-                coding, you&apos;ll find me exploring new technologies, contributing
-                to open source, or mentoring aspiring developers.
-              </p>
+              {ABOUT_CONTENT.aboutParagraphs.map((para, index) => (
+                <p
+                  key={index}
+                  className="text-foreground leading-relaxed text-lg"
+                >
+                  {para.text}
+                </p>
+              ))}
             </div>
 
             <div className="flex flex-wrap gap-3">
-              {[
-                "React",
-                "TypeScript",
-                "Next.js",
-                "Node.js",
-                "PostgreSQL",
-                "AWS",
-              ].map((skill) => (
+              {ABOUT_CONTENT.skills.map((skill) => (
                 <span
-                  key={skill}
+                  key={skill.skill}
                   className="px-3 py-1 bg-muted text-muted-foreground rounded-full text-sm font-medium"
                 >
-                  {skill}
+                  {skill.skill}
                 </span>
               ))}
             </div>
@@ -94,46 +154,65 @@ export function AboutSection() {
         >
           <div className="flex justify-center gap-4">
             <Button
+              asChild
               variant="outline"
               size="icon"
               className="h-12 w-12 rounded-full border-border hover:bg-accent hover:text-accent-foreground transition-colors bg-transparent"
             >
-              <Github className="h-5 w-5" />
-              <span className="sr-only">GitHub</span>
+              <a
+                href={ABOUT_CONTENT.socialLinks.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github className="h-5 w-5" />
+                <span className="sr-only">GitHub</span>
+              </a>
             </Button>
             <Button
+              asChild
               variant="outline"
               size="icon"
               className="h-12 w-12 rounded-full border-border hover:bg-accent hover:text-accent-foreground transition-colors bg-transparent"
             >
-              <Linkedin className="h-5 w-5" />
-              <span className="sr-only">LinkedIn</span>
+              <a
+                href={ABOUT_CONTENT.socialLinks.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Linkedin className="h-5 w-5" />
+                <span className="sr-only">LinkedIn</span>
+              </a>
             </Button>
             <Button
+              asChild
               variant="outline"
               size="icon"
               className="h-12 w-12 rounded-full border-border hover:bg-accent hover:text-accent-foreground transition-colors bg-transparent"
             >
-              <Mail className="h-5 w-5" />
-              <span className="sr-only">Email</span>
+              <a href={ABOUT_CONTENT.socialLinks.mailToUrl}>
+                <Mail className="h-5 w-5" />
+                <span className="sr-only">Email</span>
+              </a>
             </Button>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-3 rounded-lg font-medium transition-colors group"
-            >
-              Get In Touch
-              <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="px-8 py-3 rounded-lg font-medium border-border hover:bg-muted transition-colors bg-transparent"
-            >
-              View My Work
-            </Button>
+            {ABOUT_CONTENT.ctaButtons.map((button) => (
+              <Button
+                asChild
+                key={button.text}
+                size="lg"
+                variant={button.variant === "outline" ? "outline" : "default"}
+                className="px-8 py-3 rounded-lg font-medium transition-colors group"
+              >
+                <a href={button.href}>
+                  {button.text}
+                  {button.variant === "default" && (
+                    <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  )}
+                </a>
+              </Button>
+            ))}
           </div>
         </motion.div>
       </div>

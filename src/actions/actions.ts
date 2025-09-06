@@ -7,3 +7,9 @@ export const getHeroContent = async () => {
   const heroContent = await payload.findGlobal({ slug: "hero" });
   return heroContent;
 };
+
+export const getAboutContent = async () => {
+  const payload = await payloadClient();
+  const aboutContent = await payload.findGlobal({ slug: "about" });
+  return aboutContent;
+};
