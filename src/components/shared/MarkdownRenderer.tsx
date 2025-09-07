@@ -44,6 +44,10 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
               </code>
             );
           },
+          img({ src, alt }) {
+            // Optionally process src or add classNames here
+            return <img src={src} alt={alt} className="max-w-full rounded" />;
+          },
 
           // Render task list items with checkbox inputs
           li({ children, checked, ...props }: any) {

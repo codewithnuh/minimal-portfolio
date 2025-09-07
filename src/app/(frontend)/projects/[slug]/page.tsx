@@ -1,6 +1,7 @@
 import { getSingleProject } from "@/actions/actions";
 import { Container } from "@/components/shared/Container";
 import Heading from "@/components/shared/Heading";
+import { LexicalRenderer } from "@/components/shared/LexicalRenderer";
 import MarkdownRenderer from "@/components/shared/MarkdownRenderer";
 import ProjectDetailsRenderer from "@/components/shared/MarkdownRenderer";
 import { notFound } from "next/navigation";
@@ -13,11 +14,12 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
 
   return (
     <Container>
-      <article className="mt-44 prose ">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl/none max-w-4xl mx-auto text-center font-bold">
+      <article className="mt-44 prose dark:prose-invert ">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl  lg:text-5xl/none max-w-4xl mx-auto text-center font-bold">
           {project.title}
         </h1>
-        <MarkdownRenderer content={project.markdown as string} />
+        {/* <MarkdownRenderer content={project.markdown as string} /> */}
+        <LexicalRenderer lexicalData={project.details} />
       </article>
     </Container>
   );
