@@ -13,7 +13,7 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   if (!project) notFound();
 
   return (
-    <Container>
+    <Container className="px-8">
       <article className="mt-44 prose dark:prose-invert ">
         <h1 className="text-2xl sm:text-3xl md:text-4xl  lg:text-5xl/none max-w-4xl mx-auto text-center font-bold">
           {project.title}

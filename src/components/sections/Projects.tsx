@@ -237,15 +237,10 @@ export const ProjectsSection = () => {
 
   if (isLoading) {
     return (
-      <section id="projects" className="py-6 md:py-9 lg:py-16">
+      <section id="projects">
         <Container>
-          <div className="text-center mb-16 space-y-4">
-            <Heading
-              as="h2"
-              className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl"
-            >
-              Loading Projects...
-            </Heading>
+          <div className="flex items-center justify-center mb-16 space-y-4">
+            <div className="border-2 border-primary rounded-full w-10 h-10 border-l-0 animate-spin "></div>
           </div>
         </Container>
       </section>
@@ -253,7 +248,7 @@ export const ProjectsSection = () => {
   }
 
   return (
-    <section id="projects" className="py-6 md:py-9 lg:py-16 ">
+    <section id="projects">
       <Container>
         <div className="text-center mb-16 space-y-4">
           <Heading
