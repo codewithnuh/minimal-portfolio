@@ -28,3 +28,11 @@ export const getSingleProject = async (slug: string) => {
   });
   return project;
 };
+export const getSinglePost = async (slug: string) => {
+  const payload = await payloadClient();
+  const project = await payload.find({
+    collection: "posts",
+    where: { slug: { equals: "learn-javascript" } },
+  });
+  return project;
+};

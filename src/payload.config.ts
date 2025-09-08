@@ -13,6 +13,7 @@ import { SiteSettings } from "./collections/globals/Site";
 import Hero from "./collections/globals/Hero";
 import About from "./components/globals/About";
 import Projects from "./collections/Projects";
+import Posts from "./collections/Posts";
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
@@ -23,7 +24,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Projects],
+  collections: [Users, Media, Projects, Posts],
   globals: [SiteSettings, Hero, About],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
