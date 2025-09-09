@@ -8,11 +8,13 @@ const Heading = ({
   duration = 0.3,
   children,
   className,
+  animateOnce,
 }: {
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   duration?: number;
   children: React.ReactNode;
   className?: string;
+  animateOnce?: boolean;
 }) => {
   const variants = {
     h1: "text-4xl font-bold sm:text-5xl md:text-6xl lg:text-7xl/none max-w-4xl mx-auto",
@@ -30,6 +32,9 @@ const Heading = ({
       initial={{ y: 10, opacity: 0, filter: "blur(10px)" }}
       whileInView={{ y: 0, opacity: 1, filter: "blur(0px)" }}
       transition={{ duration, ease: "easeInOut" }}
+      viewport={{
+        once: animateOnce,
+      }}
     >
       <Tag className={cn(selectedClasses, className)}>{children}</Tag>
     </motion.div>

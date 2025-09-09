@@ -1,45 +1,43 @@
-
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import Image from "next/image";
 import Link from "next/link";
-import { Project } from "@/payload-types";
-import { Media } from "@/payload-types";
-
-interface ProjectCardProps {
-  project: Project;
-}
-
-export function ProjectCard({ project }: ProjectCardProps) {
-  const { slug, title, description, image } = project;
-  const imageUrl = (image as Media)?.url;
-
+import { motion } from "motion/react";
+import React from "react";
+import { Card, CardHeader, CardTitle, CardDescription } from "../ui/card";
+import { Media, Project } from "@/payload-types";
+import Image from "next/image";
+import { TechStackPills } from "@/components/shared/TechStackPills";
+import { TechProps } from "@/types";
+const ProjectCard = ({ project, idx }: { project: Project; idx: number }) => {
   return (
-    <Link href={`/projects/${slug}`} className="group block h-full">
-      <Card className="rounded-xl p-1 overflow-hidden shadow-lg transition-transform duration-300 ease-in-out hover:scale-[1.02] h-full flex flex-col">
-        {imageUrl && (
-          <div className="relative overflow-hidden rounded-xl">
-            <AspectRatio ratio={4 / 3}>
-              <Image
-                src={imageUrl}
-                alt={title}
-                fill
-                className="object-cover w-full h-full transition-transform duration-500 ease-in-out group-hover:scale-105"
-              />
-            </AspectRatio>
-          </div>
-        )}
-        <CardHeader className="p-3 flex-grow">
-          <CardTitle className="text-xl font-bold line-clamp-2">
-            {title}
-          </CardTitle>
-          <CardContent className="p-0 mt-2">
-            <p className="text-sm text-muted-foreground line-clamp-3">
-              {description}
-            </p>
-          </CardContent>
+    <motion.div
+      key={project.title} // Using title as a key since slug isn't guaranteed in the fallback data
+      initial={{ opacity: 0, scale: 0.9, filter: "blur(5px)" }}
+      whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+      whileHover={{ scale: 1.05 }}
+      transition={{
+        duration: 0.3,
+        delay: idx * 0.2,
+      }}
+    >
+      <Card className="p-2! border-none  bg-transparent">
+        <CardHeader className="p-0! bg-transparent  ">
+          <Image
+            src={(project.image as Media).url as string}
+            alt={project.title}
+            width={600}
+            className=" border-black rounded-md border-2 dark:border-white aspect-[4/3]"
+            height={400}
+          />
         </CardHeader>
+        <Link href={`/projects/${project.slug as string}`}>
+          <CardTitle>{project.title.slice(0, 30) + "..."}</CardTitle>
+        </Link>
+        <CardDescription>{project.description}</CardDescription>
+        <div className="flex justify-between items-center ">
+          <TechStackPills techStack={project.techStack as TechProps[]} />
+        </div>
       </Card>
-    </Link>
+    </motion.div>
   );
-}
+};
+
+export default ProjectCard;

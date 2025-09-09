@@ -12,15 +12,14 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Project } from "@/payload-types";
 import React, { Suspense, useEffect, useState } from "react";
-import { ProjectCard } from "@/components/shared/ProjectCard";
 import { motion, AnimatePresence } from "motion/react";
-
+import ProjectCard from "@/components/shared/ProjectCard";
 const ProjectsPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const projectsPerPage = 6;
+  const projectsPerPage = 1;
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -67,17 +66,10 @@ const ProjectsPage = () => {
   };
 
   return (
-    <Container className="mt-20">
-      {/* Header with subtle animation */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        <Heading as="h1" className="text-center mb-12">
-          My Projects
-        </Heading>
-      </motion.div>
+    <Container className="mt-28">
+      <Heading as="h1" animateOnce className="text-center mb-12 font-mono ">
+        My Projects
+      </Heading>
 
       {loading ? (
         <motion.div
@@ -112,7 +104,7 @@ const ProjectsPage = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentPage}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-10"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
@@ -129,7 +121,7 @@ const ProjectsPage = () => {
                     ease: "easeOut",
                   }}
                 >
-                  <ProjectCard project={project} />
+                  <ProjectCard idx={index} project={project} />
                 </motion.div>
               ))}
             </motion.div>

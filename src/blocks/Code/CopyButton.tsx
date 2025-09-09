@@ -18,15 +18,16 @@ export function CopyButton({ code }: { code: string }) {
   return (
     <div className="flex justify-end align-middle">
       <Button
-        className="flex gap-1"
+        className="flex gap-1 hover:cursor-pointer"
+        size={"sm"}
         variant={"secondary"}
         onClick={async () => {
           await navigator.clipboard.writeText(code);
           updateCopyStatus();
         }}
       >
-        <p>{text}</p>
-        <CopyIcon />
+        <p className="text-xs font-medium">{text}</p>
+        <CopyIcon width={40} />
       </Button>
     </div>
   );

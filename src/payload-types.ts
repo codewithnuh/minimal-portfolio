@@ -631,7 +631,7 @@ export interface AboutSelect<T extends boolean = true> {
  * via the `definition` "CodeBlock".
  */
 export interface CodeBlock {
-  language?: ('typescript' | 'javascript' | 'css') | null;
+  language?: ('typescript' | 'javascript' | 'css' | 'cpp' | 'c' | 'html' | 'py') | null;
   code: string;
   id?: string | null;
   blockName?: string | null;
