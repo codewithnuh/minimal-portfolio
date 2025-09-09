@@ -2,18 +2,12 @@
 import { Container } from "@/components/shared/Container";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import Image from "next/image";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import Heading from "@/components/shared/Heading";
 import { getAllProjects } from "@/actions/actions";
 import { Project } from "@/payload-types";
 import ProjectCard from "../shared/ProjectCard";
-
-// Define the shape of a technology item, with an optional icon
-
-// Define the shape of a project, based on the Payload CMS schema
 
 const PROJECTS_CONTENT = {
   title: "My Recent Work",
@@ -119,7 +113,7 @@ export const ProjectsSection = () => {
         </div>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {projects.slice(0, 3).map((project, idx) => (
-            <ProjectCard idx={idx} project={project} />
+            <ProjectCard key={idx} idx={idx} project={project} />
           ))}
         </div>
         <div className="w-full flex item-center mt-10  justify-center ">

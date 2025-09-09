@@ -3,8 +3,6 @@ import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { MoonIcon } from "lucide-react";
-import { Container } from "../shared/Container";
 import { ModeToggle } from "../shared/ThemeSwitcher";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Menu, X } from "lucide-react";

@@ -5,10 +5,6 @@ import rehypeHighlight from "rehype-highlight";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import remarkGfm from "remark-gfm";
-
-// This import is correct and should not be changed
-
-// Import highlight.js default styles or your preferred theme
 import "highlight.js/styles/github.css"; // or other theme
 
 type MarkdownRendererProps = {

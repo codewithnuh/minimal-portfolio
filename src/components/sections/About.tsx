@@ -8,6 +8,7 @@ import Image from "next/image";
 import Heading from "@/components/shared/Heading";
 import { useEffect, useState } from "react";
 import { getAboutContent } from "@/actions/actions";
+import { Media } from "@/payload-types";
 
 const ABOUT_CONTENT = {
   title: "About Me",
@@ -54,8 +55,8 @@ export function AboutSection() {
           profileImage:
             typeof data.profileImage === "object" && data.profileImage !== null
               ? {
-                  url: (data.profileImage as any).url ?? "",
-                  alt: (data.profileImage as any).alt ?? "Profile image",
+                  url: (data.profileImage as Media).url ?? "",
+                  alt: (data.profileImage as Media).alt ?? "Profile image",
                 }
               : {
                   url: "",

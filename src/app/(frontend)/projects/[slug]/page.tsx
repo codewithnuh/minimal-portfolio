@@ -1,9 +1,6 @@
 import { getSingleProject } from "@/actions/actions";
 import { Container } from "@/components/shared/Container";
-import Heading from "@/components/shared/Heading";
 import { LexicalRenderer } from "@/components/shared/LexicalRenderer";
-import MarkdownRenderer from "@/components/shared/MarkdownRenderer";
-import ProjectDetailsRenderer from "@/components/shared/MarkdownRenderer";
 import { notFound } from "next/navigation";
 import React from "react";
 

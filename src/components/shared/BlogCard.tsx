@@ -3,8 +3,6 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
-
 interface BlogCardProps {
   slug: string;
   title: string;
@@ -21,10 +19,10 @@ export function BlogCard({
   image,
 }: BlogCardProps) {
   return (
-    <Link href={`/blog/${slug}`} className="group block">
+    <Link href={`/posts/${slug}`} className="group block">
       <Card className="rounded-xl p-1! overflow-hidden shadow-lg transition-transform duration-300 ease-in-out hover:scale-[1.02] h-full flex flex-col">
         <div className="relative overflow-hidden rounded-xl">
-          <AspectRatio ratio={4 / 4}>
+          <AspectRatio ratio={3 / 2}>
             <Image
               src={image}
               alt={title}
@@ -34,7 +32,7 @@ export function BlogCard({
             />
           </AspectRatio>
         </div>
-        <CardHeader className="p-3! flex-grow">
+        <CardHeader className="p-2! flex-grow">
           <p className="text-sm text-muted-foreground mb-2">
             {format(new Date(date), "PPP")}
           </p>

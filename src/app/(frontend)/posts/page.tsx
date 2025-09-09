@@ -1,5 +1,5 @@
 "use client";
-import { getAllProjects } from "@/actions/actions";
+import { getAllPosts } from "@/actions/actions";
 import { Container } from "@/components/shared/Container";
 import Heading from "@/components/shared/Heading";
 import {
@@ -10,22 +10,22 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Project } from "@/payload-types";
+import { Post } from "@/payload-types";
 import React, { Suspense, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import ProjectCard from "@/components/shared/ProjectCard";
+import { BlogCard } from "@/components/shared/BlogCard";
 const ProjectsPage = () => {
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const projectsPerPage = 1;
+  const postsPerPage = 6;
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const allProjects = await getAllProjects();
-        setProjects(allProjects.docs);
+        const allPosts = await getAllPosts();
+        setPosts(allPosts.docs);
       } catch (error) {
         console.error("Failed to fetch projects:", error);
       } finally {
@@ -36,14 +36,11 @@ const ProjectsPage = () => {
     fetchProjects();
   }, []);
 
-  const indexOfLastProject = currentPage * projectsPerPage;
-  const indexOfFirstProject = indexOfLastProject - projectsPerPage;
-  const currentProjects = projects.slice(
-    indexOfFirstProject,
-    indexOfLastProject
-  );
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
-  const totalPages = Math.ceil(projects.length / projectsPerPage);
+  const totalPages = Math.ceil(posts.length / postsPerPage);
 
   const handleNextPage = () => {
     if (currentPage < totalPages && !isTransitioning) {
@@ -78,7 +75,7 @@ const ProjectsPage = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
         >
-          {Array.from({ length: projectsPerPage }).map((_, index) => (
+          {Array.from({ length: postsPerPage }).map((_, index) => (
             <motion.div
               key={index}
               className="flex flex-col space-y-3"
@@ -110,18 +107,36 @@ const ProjectsPage = () => {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
-              {currentProjects.map((project, index) => (
+              {currentPosts.map((post, idx) => (
                 <motion.div
-                  key={project.id}
+                  key={post.id}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{
                     duration: 0.5,
-                    delay: index * 0.1,
+                    delay: idx * 0.1,
                     ease: "easeOut",
                   }}
                 >
-                  <ProjectCard key={index} idx={index} project={project} />
+                  <motion.div
+                    key={post.slug} // Using title as a key since slug isn't guaranteed in the fallback data
+                    initial={{ opacity: 0, scale: 0.9, filter: "blur(5px)" }}
+                    whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{
+                      duration: 0.3,
+                      delay: idx * 0.2,
+                    }}
+                  >
+                    <BlogCard
+                      key={post.slug}
+                      date={post.publishedDate}
+                      description="SaaS Discover how artificial intelligence is revolutionizing the SaaS industry, from "
+                      image="https://placehold.co/600x400/png"
+                      slug={post.slug}
+                      title={post.title}
+                    />
+                  </motion.div>
                 </motion.div>
               ))}
             </motion.div>
@@ -134,7 +149,7 @@ const ProjectsPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.4 }}
             >
-              <Pagination className="mt-12">
+              <Pagination className="mt-12 mb-5">
                 <PaginationContent>
                   <PaginationItem>
                     <motion.div

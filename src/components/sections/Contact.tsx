@@ -6,10 +6,9 @@ import { Container } from "../shared/Container";
 import Heading from "@/components/shared/Heading";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Mail, Linkedin, Github } from "lucide-react";
-import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Card } from "../ui/card";
 
 const CONTACT_CONTENT = {
   title: "Get In Touch",

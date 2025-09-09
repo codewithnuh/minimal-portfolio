@@ -19,6 +19,11 @@ export const getAllProjects = async () => {
   const projects = await payload.find({ collection: "projects" });
   return projects;
 };
+export const getAllPosts = async () => {
+  const payload = await payloadClient();
+  const posts = await payload.find({ collection: "posts" });
+  return posts;
+};
 
 export const getSingleProject = async (slug: string) => {
   const payload = await payloadClient();
@@ -32,7 +37,7 @@ export const getSinglePost = async (slug: string) => {
   const payload = await payloadClient();
   const project = await payload.find({
     collection: "posts",
-    where: { slug: { equals: "learn-javascript" } },
+    where: { slug: { equals: slug } },
   });
   return project;
 };
