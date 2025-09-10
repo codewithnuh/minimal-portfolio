@@ -91,10 +91,10 @@ export function AboutSection() {
           className="text-center mb-16"
         >
           <Heading as="h2" className="font-extrabold mb-3">
-            {ABOUT_CONTENT.title}
+            {aboutContent.title}
           </Heading>
           <p className=" text-muted-foreground md:text-xl max-w-2xl  mx-auto">
-            {ABOUT_CONTENT.subtitle}
+            {aboutContent.subtitle}
           </p>
         </motion.div>
 
@@ -109,8 +109,11 @@ export function AboutSection() {
                 <Image
                   width={192}
                   height={192}
-                  src={ABOUT_CONTENT.profileImage.url}
-                  alt={ABOUT_CONTENT.profileImage.alt}
+                  src={
+                    aboutContent.profileImage.url ||
+                    "https://placehold.co/600x400/png"
+                  }
+                  alt={aboutContent.profileImage.alt}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -124,7 +127,7 @@ export function AboutSection() {
             className="space-y-6"
           >
             <div className="prose prose-lg max-w-none">
-              {ABOUT_CONTENT.aboutParagraphs.map((para, index) => (
+              {aboutContent.aboutParagraphs.map((para, index) => (
                 <p
                   key={index}
                   className="text-foreground leading-relaxed text-lg"
@@ -135,7 +138,7 @@ export function AboutSection() {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              {ABOUT_CONTENT.skills.map((skill) => (
+              {aboutContent.skills.map((skill) => (
                 <span
                   key={skill.skill}
                   className="px-3 py-1 bg-muted text-muted-foreground rounded-full text-sm font-medium"
@@ -161,7 +164,7 @@ export function AboutSection() {
               className="h-12 w-12 rounded-full border-border hover:bg-accent hover:text-accent-foreground transition-colors bg-transparent"
             >
               <a
-                href={ABOUT_CONTENT.socialLinks.githubUrl}
+                href={aboutContent.socialLinks.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -176,7 +179,7 @@ export function AboutSection() {
               className="h-12 w-12 rounded-full border-border hover:bg-accent hover:text-accent-foreground transition-colors bg-transparent"
             >
               <a
-                href={ABOUT_CONTENT.socialLinks.linkedinUrl}
+                href={aboutContent.socialLinks.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -190,7 +193,7 @@ export function AboutSection() {
               size="icon"
               className="h-12 w-12 rounded-full border-border hover:bg-accent hover:text-accent-foreground transition-colors bg-transparent"
             >
-              <a href={ABOUT_CONTENT.socialLinks.mailToUrl}>
+              <a href={aboutContent.socialLinks.mailToUrl}>
                 <Mail className="h-5 w-5" />
                 <span className="sr-only">Email</span>
               </a>
@@ -198,7 +201,7 @@ export function AboutSection() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {ABOUT_CONTENT.ctaButtons.map((button) => (
+            {aboutContent.ctaButtons.map((button) => (
               <Button
                 asChild
                 key={button.text}

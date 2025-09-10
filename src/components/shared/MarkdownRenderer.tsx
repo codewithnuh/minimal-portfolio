@@ -6,6 +6,8 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import remarkGfm from "remark-gfm";
 import "highlight.js/styles/github.css"; // or other theme
+import Image from "next/image";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 type MarkdownRendererProps = {
   content: string;
@@ -23,7 +25,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
           rehypeAutolinkHeadings,
         ]}
         components={{
-          code({ node, className, children, ...props }) {
+          code({ className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
             return match ? (
               <pre className={`language-${match[1]}`}>
@@ -41,12 +43,26 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
             );
           },
           img({ src, alt }) {
-            // Optionally process src or add classNames here
-            return <img src={src} alt={alt} className="max-w-full rounded" />;
+            return (
+              <div className="my-4">
+                <AspectRatio ratio={16 / 9}>
+                  <Image
+                    src={src || ""}
+                    alt={alt || ""}
+                    fill
+                    className="rounded-md object-cover"
+                  />
+                </AspectRatio>
+              </div>
+            );
           },
 
           // Render task list items with checkbox inputs
-          li({ children, checked, ...props }: any) {
+          li({
+            children,
+            checked,
+            ...props
+          }: React.LiHTMLAttributes<HTMLLIElement> & { checked?: boolean }) {
             if (typeof checked === "boolean") {
               return (
                 <ul>

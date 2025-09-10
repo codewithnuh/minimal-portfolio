@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { Container } from "../shared/Container";
 import Heading from "@/components/shared/Heading";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Mail, Linkedin, Github } from "lucide-react";
+import { ArrowRight, Linkedin, Github } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "../ui/card";

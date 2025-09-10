@@ -19,7 +19,7 @@ const ProjectsPage = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const projectsPerPage = 1;
+  const projectsPerPage = 6;
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -111,18 +111,18 @@ const ProjectsPage = () => {
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
               {currentProjects.map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 0.1,
-                    ease: "easeOut",
-                  }}
-                >
-                  <ProjectCard key={index} idx={index} project={project} />
-                </motion.div>
+                // <motion.div
+                //   key={project.id}
+                //   initial={{ opacity: 0, y: 30 }}
+                //   animate={{ opacity: 1, y: 0 }}
+                //   transition={{
+                //     duration: 0.5,
+                //     delay: index * 0.1,
+                //     ease: "easeOut",
+                //   }}
+                // >
+                // </motion.div>
+                <ProjectCard key={index} idx={index} project={project} />
               ))}
             </motion.div>
           </AnimatePresence>

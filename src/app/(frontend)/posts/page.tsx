@@ -65,7 +65,7 @@ const ProjectsPage = () => {
   return (
     <Container className="mt-28">
       <Heading as="h1" animateOnce className="text-center mb-12 font-mono ">
-        My Projects
+        My Posts
       </Heading>
 
       {loading ? (
@@ -130,10 +130,11 @@ const ProjectsPage = () => {
                   >
                     <BlogCard
                       key={post.slug}
-                      date={post.publishedDate}
-                      description="SaaS Discover how artificial intelligence is revolutionizing the SaaS industry, from "
-                      image="https://placehold.co/600x400/png"
+                      publishedDate={post.publishedDate}
+                      featuredImage={post.featuredImage}
                       slug={post.slug}
+                      author={post.author}
+                      tags={post.tags}
                       title={post.title}
                     />
                   </motion.div>
