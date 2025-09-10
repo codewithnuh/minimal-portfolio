@@ -28,7 +28,7 @@ const ProjectCard = ({ project, idx }: { project: Project; idx: number }) => {
             height={400}
           />
         </CardHeader>
-        <Link href={`/projects/${project.slug as string}`}>
+        <Link href={`/projects/${project.slug}`}>
           <CardTitle>{project.title.slice(0, 30) + "..."}</CardTitle>
         </Link>
         <CardDescription>{project.description}</CardDescription>

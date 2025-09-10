@@ -120,3 +120,48 @@
     @apply bg-background text-foreground;
   }
 }
+
+.lexical-content h1,
+.lexical-content h2,
+.lexical-content h3,
+.lexical-content h4,
+.lexical-content h5,
+.lexical-content h6 {
+  font-weight: 700;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+}
+
+.lexical-content h1 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.lexical-content p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  line-height: 1.75;
+}
+
+.lexical-content ul,
+.lexical-content ol {
+  margin-top: 1.55em;
+  margin-bottom: 1.25em;
+  padding-left: 1.5em;
+}
+
+.lexical-content ul li:has(input[type="checkbox"]),
+.lexical-content ol li:has(input[type="checkbox"]) {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.lexical-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}

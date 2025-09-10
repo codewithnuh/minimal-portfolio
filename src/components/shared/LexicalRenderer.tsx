@@ -25,5 +25,11 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
 export const LexicalRenderer: React.FC<LexicalRendererProps> = ({
   lexicalData,
 }) => {
-  return <RichText converters={jsxConverters} data={lexicalData} />;
+  return (
+    <RichText
+      converters={jsxConverters}
+      data={lexicalData}
+      className="lexical-content"
+    />
+  );
 };

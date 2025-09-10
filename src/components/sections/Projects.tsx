@@ -66,7 +66,7 @@ export const ProjectsSection = () => {
     const fetchProjects = async () => {
       try {
         setIsLoading(true);
-        const fetchedProjects = await getAllProjects();
+        const fetchedProjects = await getAllProjects({ limit: 6, pageNo: 1 });
 
         if (fetchedProjects && fetchedProjects.docs.length > 0) {
           setProjects(fetchedProjects.docs as unknown as Project[]);
