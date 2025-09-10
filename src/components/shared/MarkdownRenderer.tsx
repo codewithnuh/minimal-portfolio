@@ -47,7 +47,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
               <div className="my-4">
                 <AspectRatio ratio={16 / 9}>
                   <Image
-                    src={src || ""}
+                    src={src as string || ""}
                     alt={alt || ""}
                     fill
                     className="rounded-md object-cover"

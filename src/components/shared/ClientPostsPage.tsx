@@ -103,7 +103,7 @@ const ClientPostsPage: React.FC<ClientPostsPageProps> = ({
                   </div>
                 </motion.div>
               ))
-            : posts.map((post, idx) => <BlogCard key={post.id} {...post} />)}
+            : posts.map((post) => <BlogCard key={post.id} {...post} />)}
         </motion.div>
       </AnimatePresence>
 

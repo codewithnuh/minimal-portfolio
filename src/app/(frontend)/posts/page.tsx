@@ -1,6 +1,5 @@
 import { getAllPosts } from "@/actions/actions";
 import ClientPostsPage from "@/components/shared/ClientPostsPage";
-import { Post } from "@/payload-types";
 export const revalidate = 60;
 
 export async function generateStaticParams() {

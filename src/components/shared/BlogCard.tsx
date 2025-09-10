@@ -3,23 +3,9 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
-import { Media, Post } from "@/payload-types";
-interface BlogCardProps {
-  slug: string;
-  title: string;
-  description: string;
-  date: string;
-  image: string;
-}
+import { Post } from "@/payload-types";
 
-export function BlogCard({
-  slug,
-  title,
-  author,
-  publishedDate,
-  tags,
-  featuredImage,
-}: Post) {
+export function BlogCard({ slug, title, publishedDate }: Post) {
   return (
     <Link href={`/posts/${slug}`} className="group block">
       <Card className="rounded-xl p-1! overflow-hidden shadow-lg transition-transform duration-300 ease-in-out hover:scale-[1.02] h-full flex flex-col">
