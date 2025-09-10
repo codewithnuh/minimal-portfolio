@@ -26,7 +26,7 @@ export function BlogCard({
         <div className="relative overflow-hidden rounded-xl">
           <AspectRatio ratio={3 / 2}>
             <Image
-              src={(featuredImage as Media).url as string}
+              src={"https://placehold.co/600x400/png"}
               alt={title}
               width={600}
               height={400}

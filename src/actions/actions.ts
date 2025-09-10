@@ -14,14 +14,34 @@ export const getAboutContent = async () => {
   return aboutContent;
 };
 
-export const getAllProjects = async () => {
+export const getAllProjects = async ({
+  pageNo = 1,
+  limit = 6,
+}: {
+  pageNo?: number;
+  limit: number;
+}) => {
   const payload = await payloadClient();
-  const projects = await payload.find({ collection: "projects" });
+  const projects = await payload.find({
+    collection: "projects",
+    limit,
+    page: pageNo,
+  });
   return projects;
 };
-export const getAllPosts = async () => {
+export const getAllPosts = async ({
+  pageNo = 1,
+  limit = 6,
+}: {
+  pageNo?: number;
+  limit?: number;
+} = {}) => {
   const payload = await payloadClient();
-  const posts = await payload.find({ collection: "posts" });
+  const posts = await payload.find({
+    collection: "posts",
+    limit: limit,
+    page: pageNo,
+  });
   return posts;
 };
 

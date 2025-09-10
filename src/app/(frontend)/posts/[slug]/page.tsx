@@ -1,10 +1,15 @@
-import { getSinglePost } from "@/actions/actions";
+import { getAllPosts, getSinglePost } from "@/actions/actions";
 import { Container } from "@/components/shared/Container";
 import { LexicalRenderer } from "@/components/shared/LexicalRenderer";
 import { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
 import { notFound } from "next/navigation";
 import React from "react";
-
+export async function generateStaticParams() {
+  const postsData = await getAllPosts({ pageNo: 1, limit: 6 });
+  return postsData.docs.map((post) => ({
+    id: String(post.id),
+  }));
+}
 const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
   const post = (await getSinglePost(slug)).docs[0];
