@@ -1,6 +1,7 @@
 "use server";
 
 import { payloadClient } from "@/lib/getPaylod";
+import { About } from "@/payload-types";
 
 export const getHeroContent = async () => {
   const payload = await payloadClient();

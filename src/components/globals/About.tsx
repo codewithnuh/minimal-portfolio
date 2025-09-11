@@ -27,12 +27,14 @@ export const About: GlobalConfig = {
       name: "aboutParagraphs",
       type: "array",
       label: "About Paragraphs",
+      maxRows: 2,
       fields: [
         {
           name: "text",
           type: "text",
           label: "Paragraph Text",
           required: true,
+          maxLength: 308,
         },
       ],
       admin: {
