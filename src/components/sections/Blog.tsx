@@ -18,7 +18,7 @@ const Blog = async () => {
           My Blog
         </Heading>
         <div className="mt-10 grid md:grid-cols-3 gap-4">
-          {data.docs.map((post) => (
+          {data.docs.slice(0, 3).map((post) => (
             <BlogCard
               key={post.slug}
               slug={post.slug}

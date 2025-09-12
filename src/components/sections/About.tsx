@@ -5,11 +5,9 @@ import { Mail, Github, Linkedin, ExternalLink } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import Heading from "@/components/shared/Heading";
-
-import { getAboutContent } from "@/actions/actions";
 import { About, Media } from "@/payload-types";
 import Link from "next/link";
-
+import { ABOUT_FALLBACK_CONTENT } from "@/data";
 export function AboutSection({ aboutContent }: { aboutContent: About }) {
   return (
     <section className="min-h-screen bg-background py-20 px-4">
@@ -21,10 +19,10 @@ export function AboutSection({ aboutContent }: { aboutContent: About }) {
           className="text-center mb-16"
         >
           <Heading as="h2" className="font-extrabold mb-3">
-            {aboutContent.title}
+            {aboutContent.title || ABOUT_FALLBACK_CONTENT.title}
           </Heading>
           <p className=" text-muted-foreground md:text-xl max-w-2xl  mx-auto">
-            {aboutContent.subtitle}
+            {aboutContent.subtitle || ABOUT_FALLBACK_CONTENT.subtitle}
           </p>
         </motion.div>
 
@@ -41,10 +39,11 @@ export function AboutSection({ aboutContent }: { aboutContent: About }) {
                   height={192}
                   src={
                     (aboutContent.profileImage as Media)?.url ||
-                    "https://placehold.co/600x400/png"
+                    ABOUT_FALLBACK_CONTENT.profileImage.url
                   }
                   alt={
-                    (aboutContent.profileImage as Media)?.alt || "About Image"
+                    (aboutContent.profileImage as Media)?.alt ||
+                    ABOUT_FALLBACK_CONTENT.profileImage.alt
                   }
                   className="w-full h-full object-cover"
                 />
@@ -66,7 +65,15 @@ export function AboutSection({ aboutContent }: { aboutContent: About }) {
                 >
                   {para.text}
                 </p>
-              ))}
+              )) ||
+                ABOUT_FALLBACK_CONTENT.aboutParagraphs?.map((para, index) => (
+                  <p
+                    key={index}
+                    className="text-foreground leading-relaxed text-lg"
+                  >
+                    {para.text}
+                  </p>
+                ))}
             </div>
 
             <div className="flex flex-wrap gap-3">
@@ -74,13 +81,24 @@ export function AboutSection({ aboutContent }: { aboutContent: About }) {
                 (skill) =>
                   skill.skill && ( // Ensure skill.skill is not null or undefined
                     <span
-                      key={skill.skill}
+                      key={skill.id}
                       className="px-3 py-1 bg-muted text-muted-foreground rounded-full text-sm font-medium"
                     >
                       {skill.skill}
                     </span>
                   )
-              )}
+              ) ||
+                ABOUT_FALLBACK_CONTENT.skills?.map(
+                  (skill) =>
+                    skill.skill && ( // Ensure skill.skill is not null or undefined
+                      <span
+                        key={skill.id}
+                        className="px-3 py-1 bg-muted text-muted-foreground rounded-full text-sm font-medium"
+                      >
+                        {skill.skill}
+                      </span>
+                    )
+                )}
             </div>
           </motion.div>
         </div>
@@ -99,7 +117,10 @@ export function AboutSection({ aboutContent }: { aboutContent: About }) {
               className="h-12 w-12 rounded-full border-border hover:bg-accent hover:text-accent-foreground transition-colors bg-transparent"
             >
               <Link
-                href={aboutContent.socialLinks?.githubUrl || "#"}
+                href={
+                  aboutContent.socialLinks?.githubUrl ||
+                  ABOUT_FALLBACK_CONTENT.socialLinks.github
+                }
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -114,7 +135,10 @@ export function AboutSection({ aboutContent }: { aboutContent: About }) {
               className="h-12 w-12 rounded-full border-border hover:bg-accent hover:text-accent-foreground transition-colors bg-transparent"
             >
               <Link
-                href={aboutContent.socialLinks?.linkedinUrl || "#"}
+                href={
+                  aboutContent.socialLinks?.linkedinUrl ||
+                  ABOUT_FALLBACK_CONTENT.socialLinks.linkedIn
+                }
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -128,7 +152,12 @@ export function AboutSection({ aboutContent }: { aboutContent: About }) {
               size="icon"
               className="h-12 w-12 rounded-full border-border hover:bg-accent hover:text-accent-foreground transition-colors bg-transparent"
             >
-              <a href={aboutContent.socialLinks?.mailToUrl || "#"}>
+              <a
+                href={
+                  aboutContent.socialLinks?.mailToUrl ||
+                  ABOUT_FALLBACK_CONTENT.socialLinks.mail
+                }
+              >
                 <Mail className="h-5 w-5" />
                 <span className="sr-only">Email</span>
               </a>
@@ -151,7 +180,23 @@ export function AboutSection({ aboutContent }: { aboutContent: About }) {
                   )}
                 </a>
               </Button>
-            ))}
+            )) ||
+              ABOUT_FALLBACK_CONTENT.ctaButtons?.map((button) => (
+                <Button
+                  asChild
+                  key={button.text}
+                  size="lg"
+                  variant={button.variant === "outline" ? "outline" : "default"}
+                  className="px-8 py-3 rounded-lg font-medium transition-colors group"
+                >
+                  <a href={button.href || "#"}>
+                    {button.text}
+                    {button.variant === "default" && (
+                      <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    )}
+                  </a>
+                </Button>
+              ))}
           </div>
         </motion.div>
       </div>
