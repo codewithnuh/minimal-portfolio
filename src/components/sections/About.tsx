@@ -10,7 +10,7 @@ import Link from "next/link";
 import { ABOUT_FALLBACK_CONTENT } from "@/data";
 export function AboutSection({ aboutContent }: { aboutContent: About }) {
   return (
-    <section className="min-h-screen bg-background py-20 px-4">
+    <section id="about" className="min-h-screen bg-background py-20 px-4">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -23,35 +23,27 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="w-full border-t border-border bg-background py-8 md:py-12">
-      <Container className="flex flex-col items-center justify-between gap-6 md:flex-row">
-        {/* Copyright and Brand */}
-        <div className="flex flex-col items-center gap-2 text-center md:items-start md:text-left">
-          <Link href="/" className="text-xl font-bold">
-            Your SaaS
-          </Link>
-          <p className="text-sm text-muted-foreground">
-            &copy; {currentYear} All rights reserved.
-          </p>
-        </div>
+    <footer className="w-full border-t border-border bg-background py-6">
+      <Container className="flex flex-col items-center justify-between gap-4 md:flex-row">
+        {/* Copyright */}
+        <p className="text-sm text-muted-foreground text-center md:text-left">
+          &copy; {currentYear} Your SaaS. All rights reserved.
+        </p>
 
         {/* Social Links */}
-        <div className="flex gap-4">
-          {socialLinks.map((link) => {
-            const IconComponent = link.icon;
-            return (
-              <Link
-                key={link.name}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={link.name}
-                className="group rounded-full p-2 transition-colors duration-300 hover:bg-primary-foreground hover:text-primary"
-              >
-                <IconComponent className="h-6 w-6 transition-transform group-hover:scale-110" />
-              </Link>
-            );
-          })}
+        <div className="flex gap-3">
+          {socialLinks.map(({ name, url, icon: Icon }) => (
+            <Link
+              key={name}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={name}
+              className="text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <Icon className="h-5 w-5" />
+            </Link>
+          ))}
         </div>
       </Container>
     </footer>

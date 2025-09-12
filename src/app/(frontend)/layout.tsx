@@ -51,7 +51,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html suppressHydrationWarning lang="en" className={`${inter.className}`}>
+    <html
+      suppressHydrationWarning
+      lang="en"
+      className={`${inter.className} scroll-smooth`}
+    >
       <body>
         <ThemeProvider
           attribute="class"

@@ -5,6 +5,7 @@ import React from "react";
 
 const Heading = ({
   as: Tag = "h1",
+  id,
   duration = 0.3,
   children,
   className,
@@ -15,10 +16,11 @@ const Heading = ({
   children: React.ReactNode;
   className?: string;
   animateOnce?: boolean;
+  id?: string;
 }) => {
   const variants = {
     h1: "text-4xl font-bold sm:text-5xl md:text-6xl lg:text-7xl/none max-w-4xl mx-auto",
-    h2: "text-3xl font-semibold sm:text-4xl md:text-5xl max-w-3xl mx-auto",
+    h2: "text-3xl font-bold sm:text-4xl md:text-5xl max-w-3xl mx-auto",
     h3: "text-2xl font-semibold sm:text-3xl max-w-2xl mx-auto",
     h4: "text-xl font-semibold sm:text-2xl",
     h5: "text-lg font-medium sm:text-xl",
@@ -36,7 +38,9 @@ const Heading = ({
         once: animateOnce,
       }}
     >
-      <Tag className={cn(selectedClasses, className)}>{children}</Tag>
+      <Tag id={id} className={cn(selectedClasses, className)}>
+        {children}
+      </Tag>
     </motion.div>
   );
 };
