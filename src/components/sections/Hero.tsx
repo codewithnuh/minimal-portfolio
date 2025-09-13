@@ -6,25 +6,7 @@ import { Container } from "@/components/shared/Container";
 import { motion } from "motion/react";
 import Heading from "@/components/shared/Heading";
 import { Highlighter } from "@/components/shared/Highlighter";
-import { useEffect, useState } from "react";
-import { getHeroContent } from "@/actions/actions";
-
-const HERO_CONTENT = {
-  greeting: "Hello, I'm John Doe.",
-  headline: "Turning Ideas Into Captivating Web Experiences",
-  description:
-    "Full-stack developer crafting elegant, high-performance applications that solve complex problems with intuitive design.",
-  primaryButton: {
-    text: "Explore My Projects",
-    href: "#projects",
-  },
-  secondaryButton: {
-    text: "Let's Talk",
-    href: "#contact",
-  },
-};
-
-// Variants for staggered animation
+import { Hero } from "@/payload-types";
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
@@ -35,15 +17,7 @@ const staggerContainer = {
   },
 };
 
-export const Hero = () => {
-  const [heroContent, setHeroContent] = useState(HERO_CONTENT);
-  useEffect(() => {
-    const fetchHeroContent = async () => {
-      const data = await getHeroContent();
-      if (data) setHeroContent(data);
-    };
-    fetchHeroContent();
-  }, []);
+export const HeroSection = ({ heroContent }: { heroContent: Hero }) => {
   return (
     <section className="relative w-full py-24 md:py-32 overflow-hidden">
       <Container>

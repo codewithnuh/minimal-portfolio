@@ -9,6 +9,7 @@ export const Hero: GlobalConfig = {
       type: "text",
       label: "Greeting",
       required: true,
+      defaultValue: "Hi, I am John Doe",
     },
     {
       name: "headline",
@@ -16,6 +17,7 @@ export const Hero: GlobalConfig = {
       label: "Headline",
       required: true,
       maxLength: 50,
+      defaultValue: "Turning Ideas Into Captivating Web Experiences",
     },
     {
       name: "description",
@@ -23,6 +25,8 @@ export const Hero: GlobalConfig = {
       label: "Description",
       required: true,
       maxLength: 150,
+      defaultValue:
+        "Full-stack developer crafting elegant, high-performance applications that solve complex problems with intuitive design.",
     },
     {
       name: "primaryButton",
@@ -34,12 +38,14 @@ export const Hero: GlobalConfig = {
           type: "text",
           label: "Button Text",
           required: true,
+          defaultValue: "Get Quote Know",
         },
         {
           name: "href",
           type: "text",
           label: "Button Link (Href)",
           required: true,
+          defaultValue: "/#contact",
         },
       ],
     },
@@ -53,12 +59,14 @@ export const Hero: GlobalConfig = {
           type: "text",
           label: "Button Text",
           required: true,
+          defaultValue: "View Projects",
         },
         {
           name: "href",
           type: "text",
           label: "Button Link (Href)",
           required: true,
+          defaultValue: "/#projects",
         },
       ],
     },
