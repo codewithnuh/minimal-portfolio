@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Usage Guide
 
-## Getting Started
+This template is built using Next.js, Payload CMS, and Tailwind CSS. It's designed to be a minimal portfolio site that is easy to customize and deploy.
 
-First, run the development server:
+### Prerequisites
+
+Make sure you have the following installed:
+
+* Node.js (version 18 or higher)
+* pnpm (or npm/yarn if you prefer)
+* PostgreSQL (for local development)
+
+### Installation
+
+1. Clone the repository:
+
+    ```bash
+    git clone <your_repository_url>
+    cd minimal-portfolio
+    ```
+
+2. Install dependencies:
+
+    ```bash
+    pnpm install
+    ```
+
+3. Set up your environment variables:
+
+    Create a `.env` file in the root directory and add the following:
+
+    ```
+    DATABASE_URI=<your_postgres_connection_string>
+    PAYLOAD_SECRET=<a_secure_random_string>
+    ```
+
+    **Note:** It's crucial to use a strong, randomly generated string for `PAYLOAD_SECRET` to ensure the security of your data.
+    Here is an example `.env` file
+
+    ```
+    EMAIL_USER="your-email@example.com"
+    EMAIL_PASS="your-email-password"
+    EMAIL_RECEIVER="recipient@example.com"
+
+
+    PAYLOAD_SECRET=your-super-secret-key
+    DATABASE_URI=postgres://postgres:root.password@localhost:5432/minimal-portfolio
+
+    You will also need to have a PostgreSQL database running and provide the correct connection string in `DATABASE_URI`.  For local development, you can use a tool like Docker to set up a PostgreSQL instance.
+
+### Running the Development Server
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Building for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm run build
+```
 
-## Learn More
+### Starting the Production Server
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm run start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Linting
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+pnpm run lint
+```
 
-## Deploy on Vercel
+### Resetting Migrations
+
+```bash
+pnpm run reset
+```
+
+### Environment Variables
+
+* `DATABASE_URI`: The connection string for your PostgreSQL database.
+* `PAYLOAD_SECRET`: A secret key used for encrypting sensitive data.
+
+### Payload CMS Admin
+
+The Payload CMS admin interface is available at `/admin` when the development server is running.  You can log in using the credentials of the first user created.
+
+### Customization
+
+#### Setting up the Admin User
+
+When you run the development server for the first time, Payload CMS will prompt you to create an admin user.  This user will have full access to the CMS and be able to manage all content and settings. Make sure to keep the credentials secure.
+
+* **Content:**  Manage content such as projects, posts, site settings, hero sections, and about information via the Payload CMS admin panel.
+  * **Projects & Posts**: Create, edit and publish your projects and blog posts.  Use categories and tags to organize your content.
+  * **Site Settings**: Control global site-wide settings such as default meta descriptions, social media links, and more.
+  * **Hero Section**: Customize the main landing section of your site.
+  * **About Information**: Edit about information on the about page.
+* **Components:**  Modify React components in the `src/components` directory to customize the look and feel of the portfolio.
+  * **Navbar**: Edit the navigation bar.
+  * **Footer**: Edit the footer.
+  * **Theme Provider**: Configure themes.
+* **Styling:**  Edit the `src/app/globals.css` file to adjust the Tailwind CSS styles.
+* **Payload Config:**  Modify the `payload.config.ts` file to adjust collections, globals, and other Payload CMS settings.
+  * **Collections**:  These define the data structures for your content (e.g., Projects, Posts).
+  * **Globals**: These are singletons that hold global site data (e.g., Site Settings, Hero).
+
+### Deployment
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To configure the email functionality, ensure you have set up the correct environment variables. You will also need to enable "Less secure app access" in your Gmail account settings if you are using Gmail. However, it is highly recommended to use "App Passwords" instead, as it is a more secure method.
