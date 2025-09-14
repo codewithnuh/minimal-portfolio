@@ -4,14 +4,16 @@ import { LexicalRenderer } from "@/components/shared/LexicalRenderer";
 import { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
 import { notFound } from "next/navigation";
 import React from "react";
+
+export const revalidate = 60;
 export async function generateStaticParams() {
-  const postsData = await getAllPosts({ pageNo: 1, limit: 6 });
+  const postsData = await getAllPosts({ pageNo: 1, limit: 1000 });
   return postsData.docs.map((post) => ({
-    id: String(post.id),
+    slug: String(post.slug),
   }));
 }
-const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
-  const { slug } = await params;
+const page = async ({ params }: { params: { slug: string } }) => {
+  const { slug } = params;
   const post = (await getSinglePost(slug)).docs[0];
   if (!post) notFound();
 

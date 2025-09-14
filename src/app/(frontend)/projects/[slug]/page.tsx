@@ -3,14 +3,16 @@ import { Container } from "@/components/shared/Container";
 import { LexicalRenderer } from "@/components/shared/LexicalRenderer";
 import { notFound } from "next/navigation";
 import React from "react";
+
+export const revalidate = 60;
 export async function generateStaticParams() {
-  const projectsData = await getAllProjects({ pageNo: 1, limit: 6 });
+  const projectsData = await getAllProjects({ pageNo: 1, limit: 1000 });
   return projectsData.docs.map((project) => ({
-    id: String(project.id),
+    slug: String(project.slug),
   }));
 }
-const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
-  const { slug } = await params;
+const page = async ({ params }: { params: { slug: string } }) => {
+  const { slug } = params;
   const project = (await getSingleProject(slug)).docs[0];
   if (!project) notFound();
 
