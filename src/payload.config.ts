@@ -6,6 +6,7 @@ import path from "path";
 import { buildConfig } from "payload";
 import { fileURLToPath } from "url";
 import sharp from "sharp";
+import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
@@ -14,6 +15,7 @@ import Hero from "./collections/globals/Hero";
 import About from "./components/globals/About";
 import Projects from "./collections/Projects";
 import Posts from "./collections/Posts";
+
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
@@ -41,4 +43,16 @@ export default buildConfig({
     payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
+  email: nodemailerAdapter({
+    defaultFromAddress: process.env.SMTP_USER || "yourgmail@gmail.com",
+    defaultFromName: "Your App Name",
+    transportOptions: {
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT) || 587,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    },
+  }),
 });

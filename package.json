@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.54.0",
+    "@payloadcms/email-nodemailer": "^3.55.1",
     "@payloadcms/next": "^3.54.0",
     "@payloadcms/payload-cloud": "^3.54.0",
     "@payloadcms/richtext-lexical": "^3.54.0",

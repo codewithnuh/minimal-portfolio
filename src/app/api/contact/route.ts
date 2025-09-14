@@ -1,13 +1,5 @@
-// This file should be placed in the `app/api/contact` directory of your Next.js project.
-
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-
-// Define the email service and credentials in a .env.local file
-// Example .env.local:
-// EMAIL_USER="your-email@gmail.com"
-// EMAIL_PASS="your-app-password"
-// EMAIL_RECEIVER="your-email@gmail.com"
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,15 +13,17 @@ export async function POST(request: NextRequest) {
     }
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT),
+      secure: false, // use TLS (587)
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: process.env.SMTP_USER,
       to: process.env.EMAIL_RECEIVER,
       subject: `New Message from Portfolio: ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
@@ -37,9 +31,15 @@ export async function POST(request: NextRequest) {
 
     await transporter.sendMail(mailOptions);
 
-    return NextResponse.json({ message: "Success" }, { status: 200 });
+    return NextResponse.json(
+      { message: "Email sent successfully" },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Error sending email:", error);
-    return NextResponse.json({ message: "Error" }, { status: 500 });
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
