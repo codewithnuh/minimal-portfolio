@@ -7,6 +7,9 @@ import React from "react";
 export const revalidate = 60;
 export async function generateStaticParams() {
   const projectsData = await getAllProjects({ pageNo: 1, limit: 1000 });
+  if (!projectsData?.docs?.length) {
+    return [];
+  }
   return projectsData.docs.map((project) => ({
     slug: String(project.slug),
   }));

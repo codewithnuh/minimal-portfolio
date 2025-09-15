@@ -8,6 +8,9 @@ import React from "react";
 export const revalidate = 60;
 export async function generateStaticParams() {
   const postsData = await getAllPosts({ pageNo: 1, limit: 1000 });
+  if (!postsData?.docs?.length) {
+    return []; // no static params generated
+  }
   return postsData.docs.map((post) => ({
     slug: String(post.slug),
   }));
