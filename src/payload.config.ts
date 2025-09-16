@@ -6,7 +6,7 @@ import path from "path";
 import { buildConfig } from "payload";
 import { fileURLToPath } from "url";
 import sharp from "sharp";
-import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
+// import { nodemailerAdapter } from "@payloadcms/email-nodemailer";
 
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
@@ -43,16 +43,16 @@ export default buildConfig({
     payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
-  email: nodemailerAdapter({
-    defaultFromAddress: process.env.SMTP_USER || "yourgmail@gmail.com",
-    defaultFromName: "Your App Name",
-    transportOptions: {
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT) || 587,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    },
-  }),
+  // email: nodemailerAdapter({
+  //   defaultFromAddress: process.env.SMTP_USER || "yourgmail@gmail.com",
+  //   defaultFromName: "Your App Name",
+  //   transportOptions: {
+  //     host: process.env.SMTP_HOST,
+  //     port: Number(process.env.SMTP_PORT) || 587,
+  //     auth: {
+  //       user: process.env.SMTP_USER,
+  //       pass: process.env.SMTP_PASS,
+  //     },
+  //   },
+  // }),
 });
