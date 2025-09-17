@@ -10,9 +10,12 @@ export async function generateStaticParams() {
   if (!projectsData?.docs?.length) {
     return [];
   }
-  return projectsData.docs.map((project) => ({
-    slug: String(project.slug),
-  }));
+  return projectsData.docs
+    .map((project) => project.slug)
+    .filter(Boolean)
+    .map((slug) => ({
+      slug: String(slug),
+    }));
 }
 const page = async ({ params }: { params: { slug: string } }) => {
   const { slug } = params;

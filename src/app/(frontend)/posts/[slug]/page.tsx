@@ -11,9 +11,12 @@ export async function generateStaticParams() {
   if (!postsData?.docs?.length) {
     return []; // no static params generated
   }
-  return postsData.docs.map((post) => ({
-    slug: String(post.slug),
-  }));
+  return postsData.docs
+    .map((post) => post.slug)
+    .filter(Boolean)
+    .map((slug) => ({
+      slug: String(slug),
+    }));
 }
 const page = async ({ params }: { params: { slug: string } }) => {
   const { slug } = params;

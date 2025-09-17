@@ -1,7 +1,6 @@
 "use server";
 
 import { payloadClient } from "@/lib/getPaylod";
-import { About } from "@/payload-types";
 
 export const getHeroContent = async () => {
   const payload = await payloadClient();
@@ -56,9 +55,9 @@ export const getSingleProject = async (slug: string) => {
 };
 export const getSinglePost = async (slug: string) => {
   const payload = await payloadClient();
-  const project = await payload.find({
+  const post = await payload.find({
     collection: "posts",
     where: { slug: { equals: slug } },
   });
-  return project;
+  return post;
 };
