@@ -91,7 +91,7 @@ export default async function RootLayout({
       lang="en"
       className={`${inter.className} scroll-smooth`}
     >
-      <body>
+      <body className="overflow-x-hidden">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

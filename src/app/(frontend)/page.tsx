@@ -11,7 +11,6 @@ import { unstable_noStore as noStore } from "next/cache";
 
 export const revalidate = 60;
 const page = async () => {
-  // ensure homepage pulls fresh global data on each request (no cache)
   noStore();
 
   const aboutContent = await getAboutContent();

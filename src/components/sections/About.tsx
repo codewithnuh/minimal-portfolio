@@ -34,8 +34,8 @@ export function AboutSection({ aboutContent }: { aboutContent: About }) {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Card className="p-24 bg-card border-border">
-                <div className="w-48 h-48 mx-auto mb-6 rounded-full bg-muted border-4 border-border overflow-hidden">
+              <Card className="md:p-24 flex items-center justify-center overflow-hidden bg-card border-border">
+                <div className="w-48 h-48  mb-6 rounded-full bg-muted border-4 border-border overflow-hidden">
                   <Image
                     width={192}
                     height={192}
@@ -47,7 +47,7 @@ export function AboutSection({ aboutContent }: { aboutContent: About }) {
                       (aboutContent.profileImage as Media)?.alt ||
                       ABOUT_FALLBACK_CONTENT.profileImage.alt
                     }
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover m-auto"
                   />
                 </div>
               </Card>
