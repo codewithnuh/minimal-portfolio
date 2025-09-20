@@ -1,68 +1,82 @@
-## Usage Guide
+## Minimal Portfolio Template
 
-This template is built using Next.js, Payload CMS, and Tailwind CSS. It's designed to be a minimal portfolio site that is easy to customize and deploy.
+This is a template for a minimal portfolio website built with [Next.js](https://nextjs.org/), [Payload CMS](https://payloadcms.com/), and [Tailwind CSS](https://tailwindcss.com/). It's designed to be easy to customize and deploy.
+
+### Features
+
+*   **Modern Tech Stack:** Next.js 15 (with Turbopack), Payload CMS 3.0, Tailwind CSS 4.0.
+*   **Content Management:** Manage your projects, blog posts, and site settings with Payload CMS.
+*   **Responsive Design:** Looks great on all devices.
+*   **Themeable:** Easily customize the color scheme and typography.
+*   **Easy to Deploy:** Deploy to Vercel with a single command.
 
 ### Prerequisites
 
 Make sure you have the following installed:
 
-* Node.js (version 18 or higher)
-* pnpm (or npm/yarn if you prefer)
-* PostgreSQL (for local development)
+*   Node.js (version 20 or higher)
+*   pnpm (or npm/yarn if you prefer)
+*   PostgreSQL (for local development)
 
 ### Installation
 
-1. Clone the repository:
+1.  Clone the repository:
 
     ```bash
     git clone <your_repository_url>
     cd minimal-portfolio
     ```
 
-2. Install dependencies:
+2.  Install dependencies:
 
     ```bash
     pnpm install
     ```
 
-3. Set up your environment variables:
+3.  Set up your environment variables:
 
-    Create a `.env` file in the root directory and add the following:
+    Create a `.env` file in the root directory by copying the example:
 
+    ```bash
+    cp .env.example .env
     ```
-    DATABASE_URI=<your_postgres_connection_string>
-    PAYLOAD_SECRET=<a_secure_random_string>
-    ```
 
-    **Note:** It's crucial to use a strong, randomly generated string for `PAYLOAD_SECRET` to ensure the security of your data.
-    Here is an example `.env` file
+    Then, update the `.env` file with your own values.
 
-    ```
-    EMAIL_USER="your-email@example.com"
-    EMAIL_PASS="your-email-password"
-    EMAIL_RECEIVER="recipient@example.com"
+### Environment Variables
 
+*   `DATABASE_URI`: The connection string for your PostgreSQL database.
+*   `PAYLOAD_SECRET`: A secret key used for encrypting sensitive data.
+*   `UPLOADTHING_TOKEN`: Your UploadThing API token for file uploads.
+*   `SMTP_HOST`: The hostname of your SMTP server.
+*   `SMTP_PORT`: The port of your SMTP server.
+*   `SMTP_USER`: The username for your SMTP server.
+*   `SMTP_PASS`: The password for your SMTP server.
+*   `EMAIL_RECEIVER`: The email address where contact form messages will be sent.
 
-    PAYLOAD_SECRET=your-super-secret-key
-    DATABASE_URI=postgres://postgres:root.password@localhost:5432/minimal-portfolio
+### Development
 
-    You will also need to have a PostgreSQL database running and provide the correct connection string in `DATABASE_URI`.  For local development, you can use a tool like Docker to set up a PostgreSQL instance.
-
-### Running the Development Server
+To start the development server, run:
 
 ```bash
 pnpm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This will start the Next.js development server with Turbopack. Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 ### Building for Production
+
+To build the site for production, run:
 
 ```bash
 pnpm run build
 ```
 
-### Starting the Production Server
+This will first run database migrations and then build the Next.js application.
+
+### Production
+
+To start the production server, run:
 
 ```bash
 pnpm run start
@@ -70,47 +84,45 @@ pnpm run start
 
 ### Linting
 
+To lint the codebase, run:
+
 ```bash
 pnpm run lint
 ```
 
-### Resetting Migrations
+### Database Migrations
 
-```bash
-pnpm run reset
-```
+This project uses Payload CMS migrations to manage the database schema.
 
-### Environment Variables
+*   To create a new migration, run:
 
-* `DATABASE_URI`: The connection string for your PostgreSQL database.
-* `PAYLOAD_SECRET`: A secret key used for encrypting sensitive data.
+    ```bash
+    pnpm run migrate:create
+    ```
 
-### Payload CMS Admin
+*   To apply all pending migrations, run:
 
-The Payload CMS admin interface is available at `/admin` when the development server is running.  You can log in using the credentials of the first user created.
+    ```bash
+    pnpm run migrate
+    ```
 
-### Customization
+*   To check the status of migrations, run:
 
-#### Setting up the Admin User
-
-When you run the development server for the first time, Payload CMS will prompt you to create an admin user.  This user will have full access to the CMS and be able to manage all content and settings. Make sure to keep the credentials secure.
-
-* **Content:**  Manage content such as projects, posts, site settings, hero sections, and about information via the Payload CMS admin panel.
-  * **Projects & Posts**: Create, edit and publish your projects and blog posts.  Use categories and tags to organize your content.
-  * **Site Settings**: Control global site-wide settings such as default meta descriptions, social media links, and more.
-  * **Hero Section**: Customize the main landing section of your site.
-  * **About Information**: Edit about information on the about page.
-* **Components:**  Modify React components in the `src/components` directory to customize the look and feel of the portfolio.
-  * **Navbar**: Edit the navigation bar.
-  * **Footer**: Edit the footer.
-  * **Theme Provider**: Configure themes.
-* **Styling:**  Edit the `src/app/globals.css` file to adjust the Tailwind CSS styles.
-* **Payload Config:**  Modify the `payload.config.ts` file to adjust collections, globals, and other Payload CMS settings.
-  * **Collections**:  These define the data structures for your content (e.g., Projects, Posts).
-  * **Globals**: These are singletons that hold global site data (e.g., Site Settings, Hero).
+    ```bash
+    pnpm run migrate:status
+    ```
 
 ### Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is optimized for deployment to [Vercel](https://vercel.com/). To deploy, you can use the Vercel CLI:
 
-To configure the email functionality, ensure you have set up the correct environment variables. You will also need to enable "Less secure app access" in your Gmail account settings if you are using Gmail. However, it is highly recommended to use "App Passwords" instead, as it is a more secure method.
+```bash
+pnpm run build:vercel
+```
+
+### Customization
+
+*   **Content:** Manage content such as projects, posts, site settings, hero sections, and about information via the Payload CMS admin panel at `/admin`.
+*   **Components:** Modify React components in the `src/components` directory.
+*   **Styling:** Adjust the Tailwind CSS styles in `src/app/(frontend)/globals.css`.
+*   **Payload Config:** Modify the `src/payload.config.ts` file to adjust collections, globals, and other Payload CMS settings.
